@@ -10,7 +10,7 @@ TODO: describe why this project is useful
 
 ### Reguirements
 
-* git
+* git (to install)
 
 ### Installation
 
