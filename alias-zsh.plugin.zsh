@@ -21,13 +21,28 @@ function alias-zsh()
         alias_zsh_load_aliases "${aliases_dir}" "$@"
     elif [[ "$1" == "ls" ]]; then
         alias_zsh_list_aliases "${aliases_dir}"
+    elif [[ "$1" == "edit" ]]; then
+        alias_zsh_edit_alias_file "${aliases_dir}" "$2"
     fi
+}
+
+function alias_zsh_edit_alias_file()
+{
+    local aliases_dir="$1"
+    local alias_name="$2"
+
+    if [[ -z "${alias_name}" ]]; then
+        echo "alias-zsh: edit: requires an argument"
+        return 1
+    fi
+
+    $VISUAL "${aliases_dir}/${alias_name}.zsh"
 }
 
 function alias_zsh_use_directory()
 {
     if [[ -z "$1" ]]; then
-        echo "alias-zsh: use: expected argument"
+        echo "alias-zsh: use: requires an argument"
         return 1
     fi
 
@@ -53,7 +68,7 @@ function alias_zsh_load_aliases()
             fi
         done
     else
-        echo "alias-zsh: load: expected argument"
+        echo "alias-zsh: load: requires an argument"
         return 1
     fi
 }
