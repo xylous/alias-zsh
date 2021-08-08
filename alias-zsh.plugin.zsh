@@ -46,7 +46,11 @@ function alias_zsh_load_aliases()
         done
     elif ! [[ -z "$@" ]]; then
         for alias_file in "$@"; do
-            source "${aliases_dir}/${alias_file}.zsh"
+            if [[ -f "${aliases_dir}/${alias_file}.zsh" ]]; then
+                source "${aliases_dir}/${alias_file}.zsh"
+            else
+                echo "alias-zsh: load: alias file '$alias_file' not found"
+            fi
         done
     else
         echo "alias-zsh: load: expected argument"
